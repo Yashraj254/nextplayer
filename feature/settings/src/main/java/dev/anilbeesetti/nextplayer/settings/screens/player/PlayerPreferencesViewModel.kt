@@ -40,11 +40,11 @@ class PlayerPreferencesViewModel @Inject constructor(
         }
     }
 
-    fun updatePlaybackResume(resume: Resume) {
+    fun togglePlaybackResume() {
         viewModelScope.launch {
             preferencesRepository.updatePlayerPreferences {
                 it.copy(
-                    resume = resume
+                    resume = if(it.resume == Resume.YES) Resume.NO else Resume.YES
                 )
             }
         }
@@ -176,7 +176,6 @@ data class PlayerPreferencesUIState(
 )
 
 sealed interface PlayerPreferenceDialog {
-    object ResumeDialog : PlayerPreferenceDialog
     object DoubleTapDialog : PlayerPreferenceDialog
     object FastSeekDialog : PlayerPreferenceDialog
     object AudioLanguageDialog : PlayerPreferenceDialog

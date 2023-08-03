@@ -106,7 +106,8 @@ fun PlayerPreferencesScreen(
                 PreferenceSubtitle(text = stringResource(id = R.string.playback))
             }
             resumeSetting(
-                onClick = { viewModel.showDialog(PlayerPreferenceDialog.ResumeDialog) }
+                isChecked = preferences.resume == Resume.YES,
+                onClick = viewModel::togglePlaybackResume
             )
             defaultPlaybackSpeedSetting(
                 currentDefaultPlaybackSpeed = preferences.defaultPlaybackSpeed,
@@ -141,24 +142,6 @@ fun PlayerPreferencesScreen(
         }
 
         when (uiState.showDialog) {
-            PlayerPreferenceDialog.ResumeDialog -> {
-                OptionsDialog(
-                    text = stringResource(id = R.string.resume),
-                    onDismissClick = viewModel::hideDialog
-                ) {
-                    items(Resume.values()) {
-                        RadioTextButton(
-                            text = it.name(),
-                            selected = (it == preferences.resume),
-                            onClick = {
-                                viewModel.updatePlaybackResume(it)
-                                viewModel.hideDialog()
-                            }
-                        )
-                    }
-                }
-            }
-
             PlayerPreferenceDialog.DoubleTapDialog -> {
                 OptionsDialog(
                     text = stringResource(id = R.string.double_tap),
@@ -397,12 +380,14 @@ fun LazyListScope.controllerTimeoutPreference(
 }
 
 fun LazyListScope.resumeSetting(
+    isChecked: Boolean,
     onClick: () -> Unit
 ) = item {
-    ClickablePreferenceItem(
+    PreferenceSwitch(
         title = stringResource(id = R.string.resume),
         description = stringResource(id = R.string.resume_description),
         icon = NextIcons.Resume,
+        isChecked = isChecked,
         onClick = onClick
     )
 }
