@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.NextPlayer" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+        <item name="android:windowSplashScreenBackground">
+            @color/md_theme_dark_background
+        </item>
+    </style>
+</resources>
