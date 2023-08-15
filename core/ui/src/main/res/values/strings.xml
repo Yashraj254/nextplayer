@@ -21,6 +21,9 @@
     <string name="location">Location</string>
     <string name="menu">Menu</string>
     <string name="navigate_up">Navigate up</string>
+    <string name="search_videos">Search videos</string>
+    <string name="search">Search</string>
+    <string name="close_search_bar">Close search bar</string>
     <string name="no_videos_found">No videos found</string>
     <string name="open_settings">Open Settings</string>
     <string name="permission_info">The Next Player app needs \"%1$s\" permission to access and play media. Without it, media access and playback won\'t work. To use the app fully, grant the permission.</string>

@@ -92,7 +92,8 @@ fun NoVideosFound() {
 fun VideosListFromState(
     videosState: VideosState,
     onVideoClick: (Uri) -> Unit,
-    onDeleteVideoClick: (String) -> Unit
+    onDeleteVideoClick: (String) -> Unit,
+    title: String
 ) {
     val haptic = LocalHapticFeedback.current
     var showMediaActionsFor: Video? by rememberSaveable { mutableStateOf(null) }
@@ -108,16 +109,18 @@ fun VideosListFromState(
         } else {
             MediaLazyList {
                 items(videosState.data, key = { it.path }) {
-                    VideoItem(
-                        video = it,
-                        modifier = Modifier.combinedClickable(
-                            onClick = { onVideoClick(Uri.parse(it.uriString)) },
-                            onLongClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                showMediaActionsFor = it
-                            }
+                    if (it.displayName.contains(title, ignoreCase = true)) {
+                        VideoItem(
+                            video = it,
+                            modifier = Modifier.combinedClickable(
+                                onClick = { onVideoClick(Uri.parse(it.uriString)) },
+                                onLongClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    showMediaActionsFor = it
+                                }
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
